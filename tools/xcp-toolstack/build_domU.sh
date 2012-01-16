@@ -49,15 +49,7 @@ VDI_MB=${VDI_MB:-2500}
 
 # Make sure we have git
 if ! which git; then
-    GITDIR=/tmp/git-1.7.7
-    cd /tmp
-    rm -rf $GITDIR*
-    wget http://git-core.googlecode.com/files/git-1.7.7.tar.gz
-    tar xfv git-1.7.7.tar.gz
-    cd $GITDIR
-    ./configure
-    make install
-    cd $TOP_DIR
+    apt-get -y install git
 fi
 
 # Helper to create networks
@@ -220,7 +212,7 @@ EOF
 # Install plugins
 cp -pr $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d /etc/
 chmod a+x /etc/xapi.d/plugins/*
-yum --enablerepo=base install -y parted
+apt-get install -y parted
 mkdir -p /boot/guest
 
 # Set local storage il8n
