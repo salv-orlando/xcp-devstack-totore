@@ -29,7 +29,7 @@ xe_min()
 {
   local cmd="$1"
   shift
-  /opt/xensource/bin/xe "$cmd" --minimal "$@"
+  xe "$cmd" --minimal "$@"
 }
 
 destroy_vdi()
