@@ -212,9 +212,9 @@ exit 0
 EOF
 
 # Install plugins
-cp -pr $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d /etc/
-chmod a+x /etc/xapi.d/plugins/*
-apt-get install -y parted
+chmod a+x $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d/*
+cp -pr $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d/* /usr/lib/xcp/plugins/
+apt-get install -y parted # nova-xcp-network nova-xcp-plugins
 mkdir -p /boot/guest
 
 # Set local storage il8n
