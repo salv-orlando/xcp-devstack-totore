@@ -10,6 +10,8 @@ fi
 # This directory
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 
+TMP_DIR==${TMP_DIR:-/usr/local/tmp}
+
 # Source params
 cd ../.. && source ./stackrc && cd $TOP_DIR
 
@@ -121,15 +123,15 @@ fi
 # Download our base image.  This image is made using prepare_guest.sh
 BASE_IMAGE_URL=${BASE_IMAGE_URL:-http://images.ansolabs.com/xen/stage.tgz}
 if [ ! -e $STAGING_DIR ]; then
-    if [ ! -e /tmp/stage.tgz ]; then
-        wget $BASE_IMAGE_URL -O /tmp/stage.tgz
+    if [ ! -e ${TMP_DIR}/stage.tgz ]; then
+        wget $BASE_IMAGE_URL -O ${TMP_DIR}/stage.tgz
     fi
-    tar xfz /tmp/stage.tgz
+    tar xfz ${TMP_DIR}/stage.tgz
     cd $TOP_DIR
 fi
 
 # Free up precious disk space
-rm -f /tmp/stage.tgz
+rm -f ${TMP_DIR}/stage.tgz
 
 # Make sure we have a stage
 if [ ! -d $STAGING_DIR/etc ]; then
@@ -165,10 +167,10 @@ rm -f $STAGING_DIR/etc/localtime
 cp /etc/resolv.conf $STAGING_DIR/etc/resolv.conf
 
 # Copy over devstack
-rm -f /tmp/devstack.tar
-tar --exclude='stage' --exclude='xen/xvas' --exclude='xen/nova' -cvf /tmp/devstack.tar $TOP_DIR/../../../devstack
+rm -f ${TMP_DIR}/devstack.tar
+tar --exclude='stage' --exclude='xen/xvas' --exclude='xen/nova' -cvf ${TMP_DIR}/devstack.tar $TOP_DIR/../../../devstack
 cd $STAGING_DIR/opt/stack/
-tar xf /tmp/devstack.tar
+tar xf ${TMP_DIR}/devstack.tar
 cd $TOP_DIR
 
 # Configure OVA
@@ -298,8 +300,8 @@ chmod 755 $STAGING_DIR/opt/stack/run.sh
 
 # Create xva
 if [ ! -e $XVA ]; then
-    rm -rf /tmp/mkxva*
-    UID=0 $SCRIPT_DIR/mkxva -o $XVA -t xva -x $OVA $STAGING_DIR $VDI_MB /tmp/
+    rm -rf ${TMP_DIR}/mkxva*
+    UID=0 $SCRIPT_DIR/mkxva -o $XVA -t xva -x $OVA $STAGING_DIR $VDI_MB ${TMP_DIR}/
 fi
 
 # Start guest
