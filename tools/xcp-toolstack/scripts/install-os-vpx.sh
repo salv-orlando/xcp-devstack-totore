@@ -19,9 +19,9 @@
 
 set -eux
 
-. /etc/xensource-inventory
+. /etc/xcp/inventory
 
-NAME="XenServer OpenStack VPX"
+NAME="XCP Toolstack OpenStack VPX"
 DATA_VDI_SIZE="500MiB"
 BRIDGE_M=
 BRIDGE_P=
