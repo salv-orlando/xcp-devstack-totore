@@ -94,22 +94,14 @@ HOST_NET=169.254.0.0/16
 if ! iptables -L -v -t nat | grep -q $HOST_NET; then
     iptables -t nat -A POSTROUTING -s $HOST_NET -j SNAT --to-source $HOST_IP
     iptables -I FORWARD 1 -s $HOST_NET -j ACCEPT
-    /etc/init.d/iptables save
+    iptables-save > /etc/iptables/rules.v4
 fi
 
-# Set up ip forwarding
-if ! grep -q "FORWARD_IPV4=YES" /etc/sysconfig/network; then
-    # FIXME: This doesn't work on reboot!
-    echo "FORWARD_IPV4=YES" >> /etc/sysconfig/network
+# Set up persistent ip forwarding
+sysctl -w net.ipv4.ip_forward=1
+if ! egrep -q "^net.ipv4.ip_forward = 1" /etc/sysctl.conf; then
+    echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 fi
-
-# Also, enable ip forwarding in rc.local, since the above trick isn't working
-if ! grep -q  "echo 1 >/proc/sys/net/ipv4/ip_forward" /etc/rc.local; then
-    echo "echo 1 >/proc/sys/net/ipv4/ip_forward" >> /etc/rc.local
-fi
-
-# Enable ip forwarding at runtime as well
-echo 1 > /proc/sys/net/ipv4/ip_forward
 
 # Directory where we stage the build
 STAGING_DIR=$TOP_DIR/stage
