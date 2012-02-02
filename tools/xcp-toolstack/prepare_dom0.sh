@@ -3,7 +3,7 @@ set -o xtrace
 set -o errexit
 
 # Install basics for vi and git
-apt-get install git
+apt-get -y install git iptables-persistent
 
 # Clone devstack
 DEVSTACK=${DEVSTACK:-/root/devstack}
