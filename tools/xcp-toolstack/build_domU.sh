@@ -293,7 +293,7 @@ chmod 755 $STAGING_DIR/opt/stack/run.sh
 # Create xva
 if [ ! -e $XVA ]; then
     rm -rf ${TMP_DIR}/mkxva*
-    UID=0 $SCRIPT_DIR/mkxva -o $XVA -t xva -x $OVA $STAGING_DIR $VDI_MB ${TMP_DIR}/
+    $SCRIPT_DIR/mkxva -o $XVA -t xva -x $OVA $STAGING_DIR $VDI_MB ${TMP_DIR}/
 fi
 
 # Start guest
