@@ -10,7 +10,7 @@ fi
 # This directory
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 
-TMP_DIR==${TMP_DIR:-/usr/local/tmp}
+TMP_DIR=${TMP_DIR:-/tmp}
 
 # Source params
 cd ../.. && source ./stackrc && cd $TOP_DIR
