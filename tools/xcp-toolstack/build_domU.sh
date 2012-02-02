@@ -286,7 +286,7 @@ cat <<EOF >$STAGING_DIR/opt/stack/run.sh
 #!/bin/bash
 cd /opt/stack/devstack
 killall screen
-IP=`ifconfig eth3 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'`
+IP=\`ifconfig eth3 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'\`
 UPLOAD_LEGACY_TTY=yes HOST_IP=${IP} VIRT_DRIVER=xenserver FORCE=yes MULTI_HOST=1 $STACKSH_PARAMS ./stack.sh
 EOF
 chmod 755 $STAGING_DIR/opt/stack/run.sh
