@@ -218,7 +218,7 @@ xe sr-param-set uuid=$SR_UUID other-config:i18n-key=local-storage
 DO_SHUTDOWN=${DO_SHUTDOWN:-1}
 if [ "$DO_SHUTDOWN" = "1" ]; then
     # Shutdown all domU's that created previously
-    xe vm-list --minimal name-label="$LABEL" | xargs ./scripts/uninstall-os-vpx.sh
+    xe vm-list --minimal name-label="$LABEL" | xargs ${TOP_DIR}/scripts/uninstall-os-vpx.sh
 
     # Destroy any instances that were launched
     for uuid in `xe vm-list | grep -1 instance | grep uuid | sed "s/.*\: //g"`; do
