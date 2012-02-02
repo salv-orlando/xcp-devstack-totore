@@ -16,6 +16,4 @@ iface eth2 inet static
         netmask @ETH2_NETMASK@
 
 auto eth3
-iface eth3 inet static
-        address @ETH3_IP@
-        netmask @ETH3_NETMASK@
+iface eth3 inet dhcp

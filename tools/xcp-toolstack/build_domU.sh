@@ -261,8 +261,8 @@ sed -e "s,@ETH1_IP@,$VM_IP,g" -i $INTERFACES
 sed -e "s,@ETH1_NETMASK@,$VM_NETMASK,g" -i $INTERFACES
 sed -e "s,@ETH2_IP@,$MGT_IP,g" -i $INTERFACES
 sed -e "s,@ETH2_NETMASK@,$MGT_NETMASK,g" -i $INTERFACES
-sed -e "s,@ETH3_IP@,$PUB_IP,g" -i $INTERFACES
-sed -e "s,@ETH3_NETMASK@,$PUB_NETMASK,g" -i $INTERFACES
+#sed -e "s,@ETH3_IP@,$PUB_IP,g" -i $INTERFACES
+#sed -e "s,@ETH3_NETMASK@,$PUB_NETMASK,g" -i $INTERFACES
 
 # Gracefully cp only if source file/dir exists
 function cp_it {
@@ -286,7 +286,8 @@ cat <<EOF >$STAGING_DIR/opt/stack/run.sh
 #!/bin/bash
 cd /opt/stack/devstack
 killall screen
-UPLOAD_LEGACY_TTY=yes HOST_IP=$PUB_IP VIRT_DRIVER=xenserver FORCE=yes MULTI_HOST=1 $STACKSH_PARAMS ./stack.sh
+IP=`ifconfig eth3 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'`
+UPLOAD_LEGACY_TTY=yes HOST_IP=${IP} VIRT_DRIVER=xenserver FORCE=yes MULTI_HOST=1 $STACKSH_PARAMS ./stack.sh
 EOF
 chmod 755 $STAGING_DIR/opt/stack/run.sh
 
