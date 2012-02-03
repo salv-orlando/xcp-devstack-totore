@@ -263,8 +263,8 @@ sed -e "s,@ETH1_IP@,$VM_IP,g" -i $INTERFACES
 sed -e "s,@ETH1_NETMASK@,$VM_NETMASK,g" -i $INTERFACES
 sed -e "s,@ETH2_IP@,$MGT_IP,g" -i $INTERFACES
 sed -e "s,@ETH2_NETMASK@,$MGT_NETMASK,g" -i $INTERFACES
-#sed -e "s,@ETH3_IP@,$PUB_IP,g" -i $INTERFACES
-#sed -e "s,@ETH3_NETMASK@,$PUB_NETMASK,g" -i $INTERFACES
+sed -e "s,@ETH3_IP@,$PUB_IP,g" -i $INTERFACES
+sed -e "s,@ETH3_NETMASK@,$PUB_NETMASK,g" -i $INTERFACES
 
 # Gracefully cp only if source file/dir exists
 function cp_it {
