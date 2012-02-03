@@ -28,7 +28,7 @@ EOF
 chroot $STAGING_DIR apt-get update
 chroot $STAGING_DIR apt-get install -y linux-image-$KERNEL_VERSION
 chroot $STAGING_DIR apt-get install -y cracklib-runtime curl wget ssh openssh-server tcpdump ethtool
-chroot $STAGING_DIR apt-get install -y curl wget ssh openssh-server python-pip git vim-nox sudo
+chroot $STAGING_DIR apt-get install -y curl wget ssh openssh-server python-pip git vim-nox sudo psmisc screen
 chroot $STAGING_DIR pip install xenapi
 
 # Install guest utilities
