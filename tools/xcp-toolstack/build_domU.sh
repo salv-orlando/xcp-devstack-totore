@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Abort if localrc is not set
 if [ ! -e ../../localrc ]; then
     echo "You must have a localrc with ALL necessary passwords defined before proceeding."
