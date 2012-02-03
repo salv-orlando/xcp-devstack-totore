@@ -206,8 +206,8 @@ exit 0
 EOF
 
 # Install plugins
-chmod a+x $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d/*
-cp -pr $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d/* /usr/lib/xcp/plugins/
+chmod a+x $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d/plugins/*
+cp -pr $TOP_DIR/nova/plugins/xenserver/xenapi/etc/xapi.d/plugins/* /usr/lib/xcp/plugins/
 apt-get install -y parted # nova-xcp-network nova-xcp-plugins
 mkdir -p /boot/guest
 
