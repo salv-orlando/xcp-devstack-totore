@@ -284,12 +284,14 @@ if [ "$COPYENV" = "1" ]; then
 fi
 
 # Configure run.sh
+XENBR0_IP=`ifconfig xenbr0 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'`
 cat <<EOF >$STAGING_DIR/opt/stack/run.sh
 #!/bin/bash
 cd /opt/stack/devstack
+ip route add default via $XENBR0_IP
+apt-get -y install psmisc screen
 killall screen
-IP=\`ifconfig eth3 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'\`
-UPLOAD_LEGACY_TTY=yes HOST_IP=${IP} VIRT_DRIVER=xenserver FORCE=yes MULTI_HOST=1 $STACKSH_PARAMS ./stack.sh
+UPLOAD_LEGACY_TTY=yes HOST_IP=$PUB_IP VIRT_DRIVER=xenserver FORCE=yes MULTI_HOST=1 $STACKSH_PARAMS ./stack.sh
 EOF
 chmod 755 $STAGING_DIR/opt/stack/run.sh
 
