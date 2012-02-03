@@ -199,8 +199,10 @@ if [ ! -d $TOP_DIR/nova ]; then
 fi 
 
 # Run devstack on launch
+XENBR0_IP=`ifconfig xenbr0 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'`
 cat <<EOF >$STAGING_DIR/etc/rc.local
 GUEST_PASSWORD=$GUEST_PASSWORD STAGING_DIR=/ DO_TGZ=0 bash /opt/stack/devstack/tools/xen/prepare_guest.sh
+ip route add default via $XENBR0_IP
 su -c "/opt/stack/run.sh > /opt/stack/run.sh.log" stack
 exit 0
 EOF
@@ -284,12 +286,9 @@ if [ "$COPYENV" = "1" ]; then
 fi
 
 # Configure run.sh
-XENBR0_IP=`ifconfig xenbr0 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}'`
 cat <<EOF >$STAGING_DIR/opt/stack/run.sh
 #!/bin/bash
 cd /opt/stack/devstack
-ip route add default via $XENBR0_IP
-apt-get -y install psmisc screen
 killall screen
 UPLOAD_LEGACY_TTY=yes HOST_IP=$PUB_IP VIRT_DRIVER=xenserver FORCE=yes MULTI_HOST=1 $STACKSH_PARAMS ./stack.sh
 EOF
