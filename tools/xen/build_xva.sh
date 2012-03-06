@@ -10,7 +10,7 @@ fi
 # This directory
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 
-# Source params - override xenrc params in your localrc to suite your taste
+# Source params - override xenrc params in your localrc to suit your taste
 source xenrc
 
 # Echo commands
