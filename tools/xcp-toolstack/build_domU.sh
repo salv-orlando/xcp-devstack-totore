@@ -124,6 +124,8 @@ if [ ! -e $STAGING_DIR ]; then
     cd $TOP_DIR
 fi
 
+exit 0
+
 # Free up precious disk space
 rm -f ${TMP_DIR}/stage.tgz
 

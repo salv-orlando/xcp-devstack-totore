@@ -31,6 +31,7 @@ if [ ! -e $STAGING_DIR ]; then
     if [ ! -e /tmp/stage.tgz ]; then
         wget $BASE_IMAGE_URL -O /tmp/stage.tgz
     fi
+    # This should be done as root on debian
     tar xfz /tmp/stage.tgz
     cd $TOP_DIR
 fi
@@ -43,6 +44,7 @@ if [ ! -d $STAGING_DIR/etc ]; then
     echo "Stage is not properly set up!"
     exit 1
 fi
+
 
 # Directory where our conf files are stored
 FILES_DIR=$TOP_DIR/files
@@ -171,6 +173,8 @@ if [ "$COPYENV" = "1" ]; then
     cp_it ~/.vimrc $STAGING_DIR/opt/stack/.vimrc
     cp_it ~/.bashrc $STAGING_DIR/opt/stack/.bashrc
 fi
+
+exit 0
 
 # Configure run.sh
 cat <<EOF >$STAGING_DIR/opt/stack/run.sh
